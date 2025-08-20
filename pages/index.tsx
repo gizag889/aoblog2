@@ -1,31 +1,44 @@
 import type { NextPage } from 'next'
+// type
+import PostType from '../types/PostType'
+// service
 import PostService from '../services/PostService'
-import PostType from '@/types/PostType'
-import usePostListSwr from '@/hooks/swr/usePostListSwr'
+// hooks
+import usePostListSwr from '../hooks/swr/usePostListSwr'
+// component
+import PostBox from '@/components/molecules/PostBox'
+import Layout from '@/components/templetes/Layout'
+
+import { Grid } from '@mui/material'
+import {Container} from '@mui/material'
 
 
 const Home: NextPage<{
-  staticPostList: PostType[] // 型の指定をする場所に注意！
+  staticPostList: PostType[]
 }> = ({ staticPostList }) => {
   const postList = usePostListSwr(staticPostList)
-  //useSWRは二重チェックの役割
   return (
-    <div>
-      {postList?.map((post) => {
-        //このmapでusePostListSwrで渡した書き換えたGraphQlツリーが反映される
-        
-        return <p key={post.id}>{post.title}</p> // 一個ずつ表示させる
-      })}
-    </div>
+    <Layout>
+          <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
+            <div className='flex gap-6  justify-start'>
+               {postList!.map((post) => {
+                  return (
+                    <PostBox post={post} />
+                  )
+                })}   
+            </div>
+          </div>
+      </Layout>
   )
 }
 
 export async function getStaticProps() {
-  const staticPostList = await PostService.getList(); // postListをとってくる
+  const staticPostList = await PostService.getList();
   return {
     props: {
-      staticPostList
-    }
+      staticPostList: staticPostList
+    },
+    revalidate: 10
   }
 }
 
