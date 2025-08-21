@@ -26,7 +26,6 @@
   --color-secondary-dark: 128 203 196; /* #80CBC4 */
 
   /*divider-color*/
-  --color-divider-main: #424242;
 
   /* 背景色 */
   --color-background-default: #212121; /* #212121 */
@@ -57,4 +56,6 @@
 body {
   @apply bg-background-default text-text-primary ;
   font-family: var(--font-family-body);
+  --color-divider-main:#424242;
+  
 }

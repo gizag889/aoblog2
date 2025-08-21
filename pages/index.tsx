@@ -8,9 +8,9 @@ import usePostListSwr from '../hooks/swr/usePostListSwr'
 // component
 import PostBox from '@/components/molecules/PostBox'
 import Layout from '@/components/templetes/Layout'
+import AboutBox from '@/components/molecules/AboutBox'
 
-import { Grid } from '@mui/material'
-import {Container} from '@mui/material'
+
 
 
 const Home: NextPage<{
@@ -20,13 +20,17 @@ const Home: NextPage<{
   return (
     <Layout>
           <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
-            <div className='flex gap-6  justify-start'>
-               {postList!.map((post) => {
-                  return (
-                    <PostBox post={post} />
-                  )
-                })}   
+            <div className='flex gap-10 items-start'>
+              <div className='flex gap-6 w-220 justify-start'>
+                {postList!.map((post) => {
+                    return (
+                      <PostBox post={post} />
+                    )
+                  })}   
+              </div>
+              <AboutBox></AboutBox>
             </div>
+
           </div>
       </Layout>
   )

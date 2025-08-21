@@ -31,9 +31,9 @@ const Header = () => {
                             </h1>
                           
                                 <nav>
-                                    <ul className="inline-flex gap-4 list-none m-0 p-0 py-2 relative">
+                                    <ul className="inline-flex gap-4  list-none m-0 p-0 py-2 relative">
                                         { setNavLinks.map( (navLink) => (
-                                        <button key={navLink.text}  className="inline-flex  items-center justify-center min-w-[64px] rounded px-4 py-2 font-medium uppercase  shadow-md transition-all duration-250 ease-in-out hover:bg-[#424242] hover:shadow-sm">
+                                        <button key={navLink.text}  className=" inline-flex tracking-[0.1em] items-center justify-center min-w-[64px] rounded  px-4 py-2 font-bold uppercase   transition-all duration-250 ease-in-out hover:bg-(--color-divider-main)">
                                                 {navLink.text}
                                         </button>
 
