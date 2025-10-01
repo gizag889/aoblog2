@@ -22,7 +22,7 @@
   --color-primary-dark: 255 196 0;    /* #FFC400 */
 
   /* セカンダリカラーパレット */
-  --color-secondary-main: 0 150 136;  /* #009688 */
+  --color-secondary-main:  33, 150, 243;  /* #80CBC4 */
   --color-secondary-dark: 128 203 196; /* #80CBC4 */
 
   /*divider-color*/
@@ -57,5 +57,5 @@ body {
   @apply bg-background-default text-text-primary ;
   font-family: var(--font-family-body);
   --color-divider-main:#424242;
-  
+  --color-secondary-main:  #B3E5FC;
 }
