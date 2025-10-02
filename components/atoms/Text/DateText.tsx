@@ -10,11 +10,12 @@ const DateText = ({ children }: {
         try {
             const date = new Date(dateString);
             // 日本時間でYYYY-MM-DD形式に変換
-            return date.toLocaleDateString('ja-JP', {
+            const formattedDate = date.toLocaleDateString('ja-JP', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit'
             }).replace(/\//g, '-');
+            return `${formattedDate} 公開`;
         } catch (error) {
             // パースに失敗した場合は元の文字列を返す
             return dateString.split('T')[0];
@@ -22,7 +23,7 @@ const DateText = ({ children }: {
     };
 
     return (
-        <div className="pt-2 text-right text-gray-500 font-light ">
+        <div className="pt-2 text-right text-gray-400 font-light ">
             {typeof children === 'string' ? formatDate(children) : children}
         </div>
     )

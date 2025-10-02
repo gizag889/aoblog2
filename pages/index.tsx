@@ -1,22 +1,22 @@
 import type { NextPage } from 'next'
 // type
-import PostType from '../types/PostType'
+import PostOnListType from '../types/PostOnListType'
 // service
 import PostService from '../services/PostService'
 // hooks
 import usePostListSwr from '../hooks/swr/usePostListSwr'
 // component
 import PostBox from '@/components/molecules/PostBox'
-import Layout from '@/components/templetes/Layout'
+import Layout from '@/components/templates/Layout'
 import AboutBox from '@/components/molecules/AboutBox'
 
 
 
 
 const Home: NextPage<{
-  staticPostList: PostType[]
+  staticPostList: PostOnListType[]
 }> = ({ staticPostList }) => {
-  const postList = usePostListSwr(staticPostList)
+  const postList = usePostListSwr({staticPostList})
   return (
     <Layout>
           <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
@@ -37,7 +37,7 @@ const Home: NextPage<{
 }
 
 export async function getStaticProps() {
-  const staticPostList = await PostService.getList();
+  const staticPostList = await PostService.getList({});
   return {
     props: {
       staticPostList: staticPostList
