@@ -23,7 +23,7 @@ const DateText = ({ children }: {
     };
 
     return (
-        <div className="pt-2 text-right text-gray-400 font-light ">
+        <div className="pt-4 text-right text-gray-400 font-light ">
             {typeof children === 'string' ? formatDate(children) : children}
         </div>
     )

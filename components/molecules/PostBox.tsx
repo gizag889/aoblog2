@@ -1,13 +1,11 @@
 import React from 'react'
 // type
 import PostType from '@/types/PostOnListType'
-//component
-import DateText from '../atoms/text/DateText'
 import CommImage from '../atoms/image/CommImage'
 import Link from 'next/link'
-
-
-
+//component
+import DateText from '../atoms/text/DateText'
+import PosTitle from '../atoms/text/PosTitle'
 
 
 
@@ -15,8 +13,9 @@ const PostBox = ({ post }: {
     post: PostType
 }) => {
   return ( 
-    <div className='w-1/2 cursor-pointer'>       
-        <div key={post.id} className=' border-1 border-(--color-divider-main) hover:border-(--color-secondary-main) rounded-lg'>
+    <div className=' cursor-pointer'>       
+        {/* keyを削除 */}
+        <div className='border-1 border-(--color-divider-main) hover:border-(--color-secondary-main) rounded-lg'>
             <div className='hover:text-(--color-secondary-main)'>
                 <Link href={`/post/${post.slug}`}>
                     <CommImage 
@@ -24,17 +23,15 @@ const PostBox = ({ post }: {
                         alt={post.title}
                     /> 
                     <div className='p-4'>
-                        
-                        <h1 className='font-bold pt-2'>{post.title}</h1>
+                        <PosTitle>{post.title}</PosTitle>
                         <DateText>{post.date}</DateText>
                     </div>
-                    </Link>
-
+                </Link>
             </div>
-
         </div>
     </div> 
   )
 }
 
 export default PostBox
+

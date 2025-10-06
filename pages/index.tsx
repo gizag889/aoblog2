@@ -6,33 +6,36 @@ import PostService from '../services/PostService'
 // hooks
 import usePostListSwr from '../hooks/swr/usePostListSwr'
 // component
-import PostBox from '@/components/molecules/PostBox'
 import Layout from '@/components/templates/Layout'
+import PostBox from '@/components/molecules/PostBox'
 import AboutBox from '@/components/molecules/AboutBox'
-
 
 
 
 const Home: NextPage<{
   staticPostList: PostOnListType[]
 }> = ({ staticPostList }) => {
-  const postList = usePostListSwr({staticPostList})
+  const postList = usePostListSwr({ staticPostList })
+
+  
   return (
     <Layout>
-          <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
-            <div className='flex gap-10 items-start'>
-              <div className='flex gap-6 w-220 justify-start'>
-                {postList!.map((post) => {
-                    return (
-                      <PostBox post={post} />
-                    )
-                  })}   
-              </div>
-              <AboutBox></AboutBox>
+      <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
+        <div className='flex gap-10 items-start'>
+            <div className='grid grid-cols-2 gap-4'>
+              {postList!.map((post) => {
+                  return (
+                    <PostBox post={post} />
+                    
+                  )
+                })}   
             </div>
+            <AboutBox></AboutBox>
+        </div>
+    </div>
+  </Layout>
 
-          </div>
-      </Layout>
+         
   )
 }
 
