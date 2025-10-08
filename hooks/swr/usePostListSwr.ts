@@ -1,30 +1,31 @@
 import useSWR from "swr";
-//const
-import { WpGraphQlPostConst  } from "@/constants/WpGraphQlConst";
+// const
+import { WpGraphQlPostConst } from "../../constants/WpGraphQlConst";
 // type
 import PostOnListType from "../../types/PostOnListType";
-//service 
-import PostService from "../../services/PostService"
+// service
+import PostService from "../../services/PostService";
 
-
-const usePostListSwr = ({ categoryId ,staticPostList }: {
+const usePostListSwr = ({ currentPage, categoryId, staticPostList, staticTotal }: {
+    currentPage: number,
     categoryId?: number,
-    staticPostList: PostOnListType[]
+    staticPostList: PostOnListType[],
+    staticTotal: number
 }) => {
     let key, fetcher
     if (categoryId) {
-        key = [WpGraphQlPostConst.listByCategory, categoryId]
-        fetcher = ([_, categoryId]: [string, number]) => PostService.getList({ categoryId })
+        key = [WpGraphQlPostConst.listByCategory, currentPage, categoryId]
+        fetcher = ([_, page, categoryId]: [string, number, number]) => PostService.getList({ page, categoryId })
     } else {
-        key = WpGraphQlPostConst.list
-        fetcher = PostService.getList    
+        key = [WpGraphQlPostConst.list, currentPage]
+        fetcher = ([_, page]: [string, number]) => PostService.getList({ page })
     }
-    const { data: postList } = useSWR(
+    const { data } = useSWR<[PostOnListType[], number]>(
         key,
         fetcher,
-        { fallbackData: staticPostList }
+        { fallbackData: [staticPostList, staticTotal] }
     )
-    return postList
+    return data ?? [staticPostList, staticTotal]
 }
 
 export default usePostListSwr

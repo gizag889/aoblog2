@@ -20,3 +20,20 @@ const Repository = (query: string, { variables }: Record<string, any> = {}) => {
 }
 
 export default Repository
+
+// GraphQL クエリの例
+// const postsQuery = `
+//   query GetPosts($first: Int!) {
+//     posts(first: $first) {
+//       nodes {
+//         id
+//         title
+//         content
+//       }
+//     }
+//   }
+// `
+
+// // Repository を使用
+// const postsRepo = Repository(postsQuery, { variables: { first: 10 } })
+// postsRepo.getWp()  // WordPress から投稿データを取得

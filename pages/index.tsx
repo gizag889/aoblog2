@@ -14,16 +14,16 @@ import AboutBox from '@/components/molecules/AboutBox'
 
 const Home: NextPage<{
   staticPostList: PostOnListType[]
-}> = ({ staticPostList }) => {
-  const postList = usePostListSwr({ staticPostList })
+  staticTotal: number
+}> = ({ staticPostList, staticTotal }) => {
+  const [postList] = usePostListSwr({ currentPage: 1, staticPostList, staticTotal })
 
-  
   return (
     <Layout>
-      <div className=' pt-6 mx-auto lg:max-w-screen-lg'>
+      <div className='pt-6 mx-auto lg:max-w-screen-lg'>
         <div className='flex gap-10 items-start'>
             <div className='grid grid-cols-2 gap-4'>
-              {postList!.map((post) => {
+              {postList.map((post) => {
                   return (
                     <PostBox post={post} />
                     
@@ -32,18 +32,19 @@ const Home: NextPage<{
             </div>
             <AboutBox></AboutBox>
         </div>
-    </div>
-  </Layout>
+      </div>
+    </Layout>
 
-         
+        
   )
 }
 
 export async function getStaticProps() {
-  const staticPostList = await PostService.getList({});
+  const [staticPostList, staticTotal] = await PostService.getList({ page: 1 });
   return {
     props: {
-      staticPostList: staticPostList
+      staticPostList,
+      staticTotal
     },
     revalidate: 10
   }

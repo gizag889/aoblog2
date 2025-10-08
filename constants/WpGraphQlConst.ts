@@ -41,22 +41,33 @@ export class WpGraphQlPostConst {
     slug
     title`
 
-  static list = `query PostListQuery {
-    posts {
+    static list = `query PostListQuery($offsetPagination: OffsetPagination!) {
+      posts(where: {offsetPagination: $offsetPagination}) {
+        edges {
+          node {
+            ${this._itemsOnList}
+          }
+        }
+        pageInfo {
+          offsetPagination {
+            total
+          }
+        }
+      }
+    }`
+
+
+  // 特定のカテゴリーの記事一覧取得
+  static listByCategory = `query PostListByCategoryQuery($offsetPagination: OffsetPagination!, $categoryId: Int!) {
+    posts(where: {offsetPagination: $offsetPagination, categoryId: $categoryId}) {
       edges {
         node {
           ${this._itemsOnList}
         }
       }
-    }
-  }`
-
-  // 特定のカテゴリーの記事一覧取得
-  static listByCategory = `query PostListByCategoryQuery($categoryId: Int!) {
-    posts(where: {categoryId: $categoryId}) {
-      edges {
-        node {
-          ${this._itemsOnList}
+      pageInfo {
+        offsetPagination {
+          total
         }
       }
     }
@@ -93,6 +104,16 @@ export class WpGraphQlPostConst {
   static categoryIdBySlug = `query PostCategoryIdBySlugQuery($id: ID!) {
     category(id: $id, idType: SLUG) {
       categoryId
+    }
+  }`
+
+  static total = `query PostTotalQuery {
+    posts {
+      pageInfo {
+        offsetPagination {
+          total
+        }
+      }
     }
   }`
 }

@@ -14,7 +14,7 @@ const PostListByCategory: NextPage<{
     categoryId: number,
     staticPostList: PostOnListType[]
 }> = ({ categoryId, staticPostList }) => {
-  const postList = usePostListSwr({categoryId, staticPostList})
+  const [postList, _] = usePostListSwr({ currentPage: 1, categoryId, staticPostList, staticTotal: 9 })
   return (
     <Layout>
       <div className='flex flex-wrap w-main mx-auto'>
@@ -44,8 +44,8 @@ export async function getStaticProps({ params }: {
     }
 }) {
     const slug = params.slug
-    const categoryId = await PostService.getCategoryIdBySlug({ slug }) // あえてPostService.getListの中に書かない（categoryIdをpropsに渡したいから）
-    const staticPostList = await PostService.getList({ categoryId })
+    const categoryId = await PostService.getCategoryIdBySlug({ slug })
+    const [staticPostList, _] = await PostService.getList({ page: 1, categoryId })
     return {
         props: {
             categoryId,
@@ -55,4 +55,4 @@ export async function getStaticProps({ params }: {
     }
 }
 
-export default PostListByCategory
+export default PostListByCategory;

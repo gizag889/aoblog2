@@ -19,7 +19,7 @@ const PostBox = ({ post }: {
             <div className='hover:text-(--color-secondary-main)'>
                 <Link href={`/post/${post.slug}`}>
                     <CommImage 
-                        src={post.featuredImage.url} 
+                        src={post.featuredImage?.url} 
                         alt={post.title}
                     /> 
                     <div className='p-4'>
